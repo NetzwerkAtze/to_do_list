@@ -41,19 +41,24 @@ def display_tasks(task_list):
 
 def mark_task_as_done(task_list, task_name):
     for task in task_list:
-        if task["name"].capitalize() != task_name.capitalize():
-            print("Task not found.")
-        elif task["done"] == True:
-            print("Task already marked as done.")
-        elif task["name"].capitalize() == task_name.capitalize():
-            task["done"] = True
-            print("\nTask marked as done.\n")
+        if task["name"].capitalize() == task_name.capitalize():
+            if task["done"]:  
+                print("Task already marked as done.")
+            else:
+                task["done"] = True
+                print("\nTask marked as done.\n")
+            return  
 
-def delete_task(task_list, task_name, task_choice):
-    for task in task_list:
-        if task["name"].capitalize() != task_name.capitalize():
-            print("Task not found.")
-        task_list[:] = [task for task in task_list if task["name"] != task_name]
+    print("Task not found.")
+
+def delete_task(task_list, task_name):
+    original_length = len(task_list)
+    
+    task_list[:] = [task for task in task_list if task["name"].capitalize() != task_name.capitalize()]
+
+    if len(task_list) == original_length:
+        print("Task not found.")
+    else:
         print("\nTask deleted.\n")
 
 command_mapping = {
